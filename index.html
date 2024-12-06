@@ -27,6 +27,7 @@
 </select>
 
 <h2>商品代號與對應的價格：</h2>
+<div id="vending-machine"></div>
 <ul id="selected-product-list"></ul>
 
 <label for="user-money">請輸入你手上的金額：</label>
@@ -254,6 +255,7 @@
   };
 
   const productListSelect = document.getElementById('product-list-select');
+  const vendingMachineElement = document.getElementById('vending-machine');
   const selectedProductList = document.getElementById('selected-product-list');
   const resultElement = document.getElementById('result');
   const resultImgElement = document.getElementById('resultImg');
@@ -270,19 +272,19 @@
 
     switch (selectedListName) {
       case 'list1':
-        selectedProductList.innerHTML = "<img src='./img/1f-front.jpeg' width='800'>";
+        vendingMachineElement.innerHTML = "<img src='./img/1f-front.jpeg' width='800'>";
         break;
       case 'list2':
-        selectedProductList.innerHTML = "<img src='./img/1f-rear.jpeg' width='800'>";
+        vendingMachineElement.innerHTML = "<img src='./img/1f-rear.jpeg' width='800'>";
         break;
       case 'list3':
-        selectedProductList.innerHTML = "<img src='./img/8f.jpeg' width='800'>";
+        vendingMachineElement.innerHTML = "<img src='./img/8f.jpeg' width='800'>";
         break;
       case 'list4':
-        selectedProductList.innerHTML = "<img src='./img/4f.jpeg' width='800'>";
+        vendingMachineElement.innerHTML = "<img src='./img/4f.jpeg' width='800'>";
         break;
       case 'list5':
-        selectedProductList.innerHTML = "<img src='./img/gura-pray.png'/>";
+        vendingMachineElement.innerHTML = "<img src='./img/gura-pray.png'/>";
         break;
       default:
     }
