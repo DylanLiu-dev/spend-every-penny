@@ -336,11 +336,11 @@
         dpDesire[i][j] = dpDesire[i-1][j]
         for(let k = 0; k<columns; k++){
           if((dp[i-products[j].price][k] + weight[j]) > dp[i][j] || 
-            ((dp[i-products[j].price][k] + weight[j]) == dp[i][j] && dpDesire[i-products[j].price][k] + desireScores[j]*products[j].price > dpDesire[i][j])) {
+            ((dp[i-products[j].price][k] + weight[j]) == dp[i][j] && (dpDesire[i-products[j].price][k] + desireScores[j] - 1+(products[j].price*0.0001)) > dpDesire[i][j])) {
             // take the merchandise at index j
             dp[i][j] = dp[i-products[j].price][k] + weight[j];
             dpCombo[i][j] = dpCombo[i-products[j].price][k].concat(',', products[j].name.toString());
-            dpDesire[i][j] = dpDesire[i-products[j].price][k] + desireScores[j]*products[j].price;
+            dpDesire[i][j] = dpDesire[i-products[j].price][k] + desireScores[j] - 1 + (products[j].price*0.0001);
           }
         }
       }
@@ -378,8 +378,24 @@
 
     const [bestCombination, cost] = findBestCombinationDP(selectedList, userMoney, desireScores);
 
+    const output = {};
+    bestCombination.forEach(productName => {
+      if (output[productName]) {
+        output[productName]++;
+      } else {
+        output[productName] = 1;
+      }
+    });
+
     if (bestCombination.length > 0) {
-      resultElement.textContent = `你可以購買以下商品：\n${bestCombination.join("\n")}`;
+      resultElement.innerHTML = "你可以購買以下商品：</br>";
+      Object.entries(output).forEach(([productName, count]) => {
+        if (productName == "") {
+          return;
+        }
+        resultElement.innerHTML += `${count} 個 ${productName}</br>`;
+      });
+      
       if (cost == userMoney) {
         resultImgElement.innerHTML = "<img src='./img/bj.png'/>"
       } else {
@@ -387,7 +403,7 @@
 
       }
     } else {
-      resultElement.textContent = 'no money no happy';
+      resultElement.innerHTML = 'no money no happy';
     }
   }
 
