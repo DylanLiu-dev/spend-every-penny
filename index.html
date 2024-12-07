@@ -337,11 +337,11 @@
         dpDesire[i][j] = dpDesire[i-1][j]
         for(let k = 0; k<columns; k++){
           if((dp[i-products[j].price][k] + weight[j]) > dp[i][j] || 
-            ((dp[i-products[j].price][k] + weight[j]) == dp[i][j] && (dpDesire[i-products[j].price][k] + desireScores[j] - 1+(products[j].price*0.0001)) > dpDesire[i][j])) {
+            ((dp[i-products[j].price][k] + weight[j]) == dp[i][j] && (dpDesire[i-products[j].price][k] + (desireScores[j] - 1)*products[j].price +(products[j].price*0.0001)) > dpDesire[i][j])) {
             // take the merchandise at index j
             dp[i][j] = dp[i-products[j].price][k] + weight[j];
             dpCombo[i][j] = dpCombo[i-products[j].price][k].concat(',', products[j].name.toString());
-            dpDesire[i][j] = dpDesire[i-products[j].price][k] + desireScores[j] - 1 + (products[j].price*0.0001);
+            dpDesire[i][j] = dpDesire[i-products[j].price][k] + (desireScores[j] - 1)*products[j].price + (products[j].price*0.0001);
           }
         }
       }
